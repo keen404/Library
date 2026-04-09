@@ -1,11 +1,14 @@
 const library = [];
 
+
+// ข้อมูลสำหรับทดลองการทำงาน 
 const book1 = new book("Marthin", "A1", "P1","P2");
 const book2 = new book("Luther King", "A2", "P2","P2");
+const book3 = new book("Luther Kingฤฤฤ", "A2", "P2","P2");
 
 addBookToLibrary(book1);
 addBookToLibrary(book2);
-displayBook();
+addBookToLibrary(book3);
 
 function book(title, author, pages, price) {
     this.title = title;
@@ -17,10 +20,13 @@ function book(title, author, pages, price) {
 
 function addBookToLibrary(book) {
     library.push(book);
+    displayBook();
 }
 
+// เอาหนังสือจากArrayมาแสดง
 function displayBook() {
     const displayTable = document.getElementById("display-data");
+    displayTable.innerHTML = "";
     library.forEach((book, index) => {
         let row = displayTable.insertRow(index);
         let cell1 = row.insertCell(0);
