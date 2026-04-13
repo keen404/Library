@@ -20,6 +20,10 @@ function confirmAdd(){
         const price = document.querySelector("#book-price");
         const addBook = new book(title.value, author.value, pages.value, price.value);
         dialog.close();
+        title.value = "";
+        author.value = "";
+        pages.value = "";
+        price.value = "";
         addBookToLibrary(addBook);
         displayBook();
     })
