@@ -1,6 +1,8 @@
 const library = [];
 main();
 
+
+
 function cancleAdd() {
     const cancleBtn = document.querySelector("#cancle-add");
     const dialog = document.getElementById("dialog");
@@ -52,7 +54,7 @@ function book(title, author, pages, price) {
 
 function addBookToLibrary(book) {
     library.push(book);
-        displayBook();
+    displayBook();
 }
 
 
@@ -61,17 +63,38 @@ function displayBook() {
     const displayTable = document.getElementById("display-data");
     displayTable.innerHTML = "";
     library.forEach((book, index) => {
-        let row = displayTable.insertRow(index);
-        let cell1 = row.insertCell(0);
-        let cell2 = row.insertCell(1);
-        let cell3 = row.insertCell(2);
-        let cell4 = row.insertCell(3);
+        const row = displayTable.insertRow(index);
+        const cell1 = row.insertCell(0);
+        const cell2 = row.insertCell(1);
+        const cell3 = row.insertCell(2);
+        const cell4 = row.insertCell(3);
+        row.setAttribute("data-bookId", book.id);
+
+        addRemoveButton(row);
         
         cell1.textContent = book.title;
         cell2.textContent = book.author;
         cell3.textContent = book.pages;
         cell4.textContent = book.id;
     });
+}
+
+function addRemoveButton(row) {
+    const cell5 = row.insertCell(4);
+    const removeBtn = document.createElement("button");
+    removeBtn.textContent = "remove";
+    cell5.appendChild(removeBtn);
+    removeBtn.addEventListener("click", () => {
+        library.some((book, index) => {
+            if (book.id === row.getAttribute("data-bookId")){    
+                library.splice(index, 1);
+                row.remove();
+                return true;
+            }
+        })
+    })
+    
+
 }
 
 function main() {
