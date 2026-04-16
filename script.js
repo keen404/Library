@@ -49,8 +49,31 @@ function book(title, author, pages, price) {
     this.pages = pages;
     this.price = price;
     this.id = genID();
+    this.read = false;
+}
+book.prototype.changeReadStatus = function(index) {
+    library[index].read = !library[index].read;
 }
 
+function addReadStatusButton(row) {
+    const cell6 = row.insertCell(5);
+    const addReadStatusBtn = document.createElement("button");
+    addReadStatusBtn.textContent = "read";
+    cell6.appendChild(addReadStatusBtn);
+    addReadStatusBtn.addEventListener("click", () => {
+        library.some((book, index) => {
+            if (row.getAttribute("data-bookId") === book.id) {
+                book.changeReadStatus(index);
+                if(book.read === false){
+                    addReadStatusBtn.textContent = "read";
+                }
+                else if (book.read === true) {
+                    addReadStatusBtn.textContent = "unread";
+                }
+            }
+        })
+    })
+}
 
 function addBookToLibrary(book) {
     library.push(book);
@@ -71,7 +94,8 @@ function displayBook() {
         row.setAttribute("data-bookId", book.id);
 
         addRemoveButton(row);
-        
+        addReadStatusButton(row);
+
         cell1.textContent = book.title;
         cell2.textContent = book.author;
         cell3.textContent = book.pages;
@@ -93,8 +117,6 @@ function addRemoveButton(row) {
             }
         })
     })
-    
-
 }
 
 function main() {
