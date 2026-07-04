@@ -1,6 +1,4 @@
 const library = [];
-main();
-
 
 
 function cancleAdd() {
@@ -43,17 +41,22 @@ function genID() {
     return crypto.randomUUID();
 }
 
-function book(title, author, pages, price) {
-    this.title = title;
-    this.author = author;
-    this.pages = pages;
-    this.price = price;
-    this.id = genID();
-    this.read = false;
+class book {
+    constructor(title, author, pages, price) {
+        this.title = title;
+        this.author = author;
+        this.pages = pages;
+        this.price = price;
+        this.id = genID();
+        this.read = false;
+    }
+
+    changeReadStatus(index) {
+        library[index].read = !library[index].read;
+    }
+
 }
-book.prototype.changeReadStatus = function(index) {
-    library[index].read = !library[index].read;
-}
+
 
 function addReadStatusButton(row) {
     const cell6 = row.insertCell(5);
@@ -132,3 +135,5 @@ function main() {
     displayDialogAddBook();
 
 }
+
+main();
